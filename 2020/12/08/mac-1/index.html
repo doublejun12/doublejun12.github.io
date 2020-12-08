@@ -282,7 +282,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">7.2k</span>阅读时长: <span class="post-count reading-time">31 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">7.1k</span>阅读时长: <span class="post-count reading-time">31 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -415,7 +415,7 @@ height:50vh;
 <h2 id="1-1-消息认证编码的定义"><a href="#1-1-消息认证编码的定义" class="headerlink" title="1.1. 消息认证编码的定义"></a>1.1. 消息认证编码的定义</h2><p>一个消息认证编码MAC（Message Authentication Code）由三个概率多项式（Gen, Mac, Vrfy）时间的算法构成： </p>
 <ol>
 <li>Gen: 输入安全参数$1^n$, 输出密钥$k$, 要求$|k| \geq n$.</li>
-<li>Mac: 输入密钥$k$, 消息$m \in {0, 1}^*$, 输出标签tag, $t \leftarrow Mac_k(m)$.</li>
+<li>Mac: 输入密钥$k$, 消息$m \in \{0, 1\}^*$, 输出标签tag, $t \leftarrow Mac_k(m)$.</li>
 <li>Vrfy: 输入密钥$k$, 标签$t$, 输出比特$b \leftarrow Vrfy_k(m, t)$. 若$b=1$, 则表示“有效”，反之表明“无效”。</li>
 </ol>
 <p>正确性要求$Vrfy_k(m, Mac_k(m))=1$.</p>
@@ -424,7 +424,7 @@ height:50vh;
 <li>挑战者运行$Gen(1^n)$，获得密钥$k$.</li>
 <li>攻击者输入$1^n$, 适应性地进行消息查询，将消息记为$m_1, m_2, \cdots , m_{q}$. 挑战者返回对应的MAC $t_1, t_2, \cdots, t_{q}$.</li>
 <li>攻击者宣布其挑战消息$m$, 并生成对应的MAC $t$.</li>
-<li>攻击者成功当且仅当（1）$Vrfy_k(m, t) = 1$ 并且（2）$m \notin {m_1, m_2, \cdots , m_{q}}$.</li>
+<li>攻击者成功当且仅当（1）$Vrfy_k(m, t) = 1$ 并且（2）$m \notin \{m_1, m_2, \cdots , m_{q}\}$.</li>
 </ol>
 <p>将上述游戏中攻击者$A$成功的概率记为<strong>$Pr[S]$</strong>.</p>
 <p>一个MAC方案$\Pi$在适应性选择明文攻击下是存在不可伪造的EU-CMA（Existentially Unforgeable under an adaptive Chosen-Message Attack）如果对于所有的概率多项式时间算法$A$, 存在一个可忽略的函数$negl(n)$, 使得：</p>
@@ -432,7 +432,7 @@ height:50vh;
 <h1 id="2-构造安全的MAC"><a href="#2-构造安全的MAC" class="headerlink" title="2. 构造安全的MAC"></a>2. 构造安全的MAC</h1><h2 id="2-1-固定消息长度的MAC方案"><a href="#2-1-固定消息长度的MAC方案" class="headerlink" title="2.1 固定消息长度的MAC方案"></a>2.1 固定消息长度的MAC方案</h2><p><strong>Construction 2.1：</strong></p>
 <p>假设$F$为伪随机函数，定义消息长度为$n$的MAC方案：</p>
 <ol>
-<li>$Gen(1^n)$: 选择随机均匀密钥$k \leftarrow {0,1}^{n}$, 并输出。</li>
+<li>$Gen(1^n)$: 选择随机均匀密钥$k \leftarrow \{0,1\}^{n}$, 并输出。</li>
 <li>$Mac(m, k)$: 输出标签$t:=F_k(m)$.（若$|m| \neq |k|$则不输出任何值。）</li>
 <li>$Vrfy(k,m,t)$: 若$t=F_k(m)$, 则输出1，反之输出0.</li>
 </ol>
@@ -440,25 +440,25 @@ height:50vh;
 <p><strong>Proof：</strong>假设$A$为一个概率多项式时间的攻击者，定义两个游戏Game 0, Game 1.</p>
 <p><strong>Game 0:</strong></p>
 <ol>
-<li>挑战者选择密钥$k \leftarrow {0, 1}^{n}$.</li>
-<li>攻击者适应性地查询$Q = {m_1, \cdots, m_q}$ 对应的tag, 挑战者返回${t_1, \cdots, t_q}$, 其中$t_i = F_k(m_i)$.</li>
+<li>挑战者选择密钥$k \leftarrow \{0, 1\}^{n}$.</li>
+<li>攻击者适应性地查询$Q = \{m_1, \cdots, m_q\}$ 对应的tag, 挑战者返回$\{t_1, \cdots, t_q\}$, 其中$t_i = F_k(m_i)$.</li>
 <li>攻击者输出消息-tag对$(m, t)$, 若$t=F_k(m), m \notin Q$, 则攻击者成功。</li>
 </ol>
 <p>将攻击者在Game 0中成功的概率记为$S_0$.</p>
 <p>将伪随机函数改为真随机函数$f$, 得到Game 1.</p>
 <p><strong>Game 1:</strong></p>
 <ol>
-<li>挑战者选择密钥$k \leftarrow {0, 1}^{n}$.</li>
-<li>攻击者适应性地查询$Q = {m_1, \cdots, m_q}$ 对应的tag, 挑战者返回${t_1, \cdots, t_q}$, 其中$t_i = f(m_i)$.</li>
+<li>挑战者选择密钥$k \leftarrow \{0, 1\}^{n}$.</li>
+<li>攻击者适应性地查询$Q = \{m_1, \cdots, m_q\}$ 对应的tag, 挑战者返回$\{t_1, \cdots, t_q\}$, 其中$t_i = f(m_i)$.</li>
 <li>攻击者输出消息-tag对$(m, t)$, 若$t=f(m), m \notin Q$, 则攻击者成功。</li>
 </ol>
 <p>将攻击者在Game 1中成功的概率记为$S_1$.</p>
 <p><strong>Claim 1</strong>: $Pr[S_1] = 2^{-n}$ .</p>
-<p><strong>Proof of Claim 1:</strong> 显然当$m$从未被查询过时，$f(m)$的值为${0,1}^{n}$上的随机元素，刚好取到$t$的概率为$2^{-n}$.</p>
+<p><strong>Proof of Claim 1:</strong> 显然当$m$从未被查询过时，$f(m)$的值为$\{0,1\}^{n}$上的随机元素，刚好取到$t$的概率为$2^{-n}$.</p>
 <p><strong>Claim 2:</strong> $|Pr[S_0] - Pr[S_1]| \leq negl(n)$.</p>
 <p><strong>Proof of Claim 2:</strong> 我们使用归约论证来证明该结论，假设攻击者$A$能成功伪造MAC, 我们构造新的算法D来区分真随机函数与伪随机函数。</p>
 <p><strong>算法D:</strong></p>
-<p>算法D的输入为$1^n$, 并且D能查询预言$O: {0,1}^n \rightarrow {0,1}^n$, 该算法的作用为区分$O$究竟是 真随机函数还是伪随机函数。</p>
+<p>算法D的输入为$1^n$, 并且D能查询预言$O: \{0,1\}^n \rightarrow \{0,1\}^n$, 该算法的作用为区分$O$究竟是 真随机函数还是伪随机函数。</p>
 <ol>
 <li><p>运行$A(1^n)$, 当$A$用消息$m$来查询MAC预言时，如下回答：</p>
 <p>(a)用$m$查询预言$O$, 返回值记为$t$, 将$t$值给$A$.</p>
@@ -479,26 +479,25 @@ height:50vh;
 <p>Claim 2证明完毕。</p>
 <p>结合Claim 1​和Claim 2我们有$|Pr[S_0]-2^{-n}| \leq negl(n)$, 即$Pr[S_0] \leq 2^{-n}+negl(n)$是可忽略的。</p>
 <p>所以攻击者A成功伪造的概率可忽略，构造2.1是安全的MAC方案。</p>
-<p>##2.2. 任意消息长度的MAC方案</p>
-<p>假设$\Pi’=(Mac’, Vrfy’)$是定长的MAC方案，将$m$进行分块获得$m_1, \cdots, m_d$.</p>
-<p><strong>思路1:</strong> 直接分块计算$t_i:=Mac_k^{‘}(m_i)$, 输出$&lt;t_1,t_2,\cdots,t_d&gt;$. 但这无法抵抗<strong>块重排序攻击</strong>，假设$(t_1, t_2)$为$(m_1, m_2)$对应的有效MAC. 则攻击者知道$(m_2, m_1)$对应的有效MAC是$(t_2,t_1)$.</p>
+<h2 id="2-2-任意消息长度的MAC方案"><a href="#2-2-任意消息长度的MAC方案" class="headerlink" title="2.2. 任意消息长度的MAC方案"></a>2.2. 任意消息长度的MAC方案</h2><p>假设$\Pi’=(Mac’, Vrfy’)$是定长的MAC方案，将$m$进行分块获得$m_1, \cdots, m_d$.</p>
+<p><strong>思路1:</strong> 直接分块计算$t_i:=Mac_k^{‘}(m_i)$, 输出$<t_1,t_2,\cdots,t_d>$. 但这无法抵抗<strong>块重排序攻击</strong>，假设$(t_1, t_2)$为$(m_1, m_2)$对应的有效MAC. 则攻击者知道$(m_2, m_1)$对应的有效MAC是$(t_2,t_1)$.</t_1,t_2,\cdots,t_d></p>
 <p><strong>思路2:</strong> 在每个块上加上块指数$i$, $t_i := Mac’_k(i||m_i)$, 这就能抵御<strong>块重排序攻击</strong>。但这无法抵御<strong>截断攻击</strong>，攻击者直接将最后一个区块去掉。比如$(t_1, t_2)$为$(m_1, m_2)$对应的有效MAC. 则攻击者知道$m_1$对应的有效MAC是$t_1$.</p>
 <p><strong>思路3:</strong> 每个块上加上消息的长度$l$, $t_i:=Mac’_k(l||i||m_i)$, 这能抵御<strong>截断攻击</strong>，因为截断后长度改变。但这无法抵挡<strong>混淆攻击</strong>。比如攻击者已知$(m_1,m_2)$的MAC值为$(t_1,t_2)$, $(m’_1, m’_2)$的MAC值为$(t’_1,t’_2)$. 则攻击者能知道$(m_1, m’_2)$的MAC值为$(t_1, t’_2)$.</p>
 <p><strong>Construction 2.3:</strong></p>
 <p>假设$\Pi’=(Mac’, Vrfy’)$是固定长度$n$的MAC方案，则如下定义一个新的MAC：</p>
 <ol>
-<li><p>$Gen(1^n)$: 选择随机均匀密钥$k \leftarrow {0,1}^{n}$, 并输出。</p>
+<li><p>$Gen(1^n)$: 选择随机均匀密钥$k \leftarrow \{0,1\}^{n}$, 并输出。</p>
 </li>
-<li><p>$Mac(m, k)$: 输入的消息$m \in {0,1}^*$长度为$l &lt; 2^{n/4}$. 将 $m$ 分成 $d$ 个块$m_1, m_2, \cdots, m_d$, 每个块长度为$n/4$（最后的块用0补足）。选择随机标识符$r \in {0,1}^{n/4}$.</p>
+<li><p>$Mac(m, k)$: 输入的消息$m \in \{0,1\}^*$长度为$l &lt; 2^{n/4}$. 将 $m$ 分成 $d$ 个块$m_1, m_2, \cdots, m_d$, 每个块长度为$n/4$（最后的块用0补足）。选择随机标识符$r \in \{0,1\}^{n/4}$.</p>
 <p>对于$i=1,2,\cdots,d$, 计算$t_i \leftarrow Mac’_k(r||l||i||m_i)$, $i, l$都用$n/4$长度的字符串来表示。输出标签$t=(r,t_1,t_2,\cdots, t_d)$.</p>
 </li>
-<li><p>$Vrfy(k,m,t)$: 输入标签$t = (r,t’<em>1, \cdots, t’</em>{d’})$，输入的消息$m \in {0,1}^*$长度为$l &lt; 2^{n/4}$. 将$m$分成$d$个块$m_1, m_2, \cdots, m_d$, 每个块长度为$n/4$（最后的块用0补足）。首先验证$d=d’$是否成立，其次对于$1\leq i \leq d$ 验证$t’_i=Mac’_k(r||l||i||m_i)$. 若验证均通过，输出1，反之输出0.</p>
+<li><p>$Vrfy(k,m,t)$: 输入标签$t = (r,t’_1, \cdots, t’_{d’})$，输入的消息$m \in \{0,1\}^*$长度为$l &lt; 2^{n/4}$. 将$m$分成$d$个块$m_1, m_2, \cdots, m_d$, 每个块长度为$n/4$（最后的块用0补足）。首先验证$d=d’$是否成立，其次对于$1\leq i \leq d$ 验证$t’_i=Mac’_k(r||l||i||m_i)$. 若验证均通过，输出1，反之输出0.</p>
 </li>
 </ol>
 <p><strong>Theorem 2.4:</strong> 假设$\Pi’$为长度为$n$安全的定长MAC方案，那么上述构造是任意长度的安全MAC方案。</p>
 <p> <strong>Proof:</strong> 假设$A$为概率多项式时间的攻击者，我们把$A$成功伪造上述MAC方案记为事件$S$, 我们要证明$Pr[S]$是可忽略的。</p>
 <p>符号说明：</p>
-<p>令$(m,t=&lt;r,t_1,\cdots&gt;)$为攻击者最后的输出，其中$m=m_1, \cdots$.</p>
+<p>令$(m,t=<r,t_1,\cdots>)$为攻击者最后的输出，其中$m=m_1, \cdots$.</r,t_1,\cdots></p>
 <p><strong>Repeat:</strong> 攻击者查询MAC预言得到的一系列tag值中，有两个随机标识符一样。</p>
 <p><strong>NewBlock</strong>: 至少有一个块$r||l||i||m_i$在A的预言查询时从来未被$Mac’_k$认证过。</p>
 <p>$Pr[S]=Pr[S \land Repeat]+Pr[S \land \overline{Repeat} \land NewBlock]+Pr[S \land \overline{Repeat} \land \overline{NewBlock}]$</p>
@@ -510,7 +509,7 @@ height:50vh;
 <p>该值为可忽略的值。</p>
 <p><strong>Claim 2:</strong> $Pr[S \land \overline{Repeat} \land \overline{NewBlock}]=0$</p>
 <p>我们证明如果攻击者伪造成功且MAC查询时随机标识符都不相同，则<strong>NewBlock</strong>必然发生。</p>
-<p><strong>Proof of Claim 2:</strong> 再次假设$q=q(n)$为攻击者进行MAC查询的次数。事件<strong>Repeat</strong>没有发生，则$r_1,r_2,…,r_q$各不相同。若$r \notin {r_1,r_2,…,r_q}$, 则显然<strong>NewBlock</strong>发生。</p>
+<p><strong>Proof of Claim 2:</strong> 再次假设$q=q(n)$为攻击者进行MAC查询的次数。事件<strong>Repeat</strong>没有发生，则$r_1,r_2,…,r_q$各不相同。若$r \notin \{r_1,r_2,…,r_q\}$, 则显然<strong>NewBlock</strong>发生。</p>
 <p>若存在$j$, 使得$r=r_j$, 假设$r_j$为攻击者第$j$次查询的标识符，对应的消息为$m^{(j)}$, 长度为$l_j$.</p>
 <p><strong>Case 1:</strong> $l \neq l_j$, 则所有块的第二个分量都不一样，显然块$r||l||1||m_1$从未被查询过。<strong>NewBlock</strong>显然发生。</p>
 <p><strong>Case 2:</strong> $l = l_j$, 则由于攻击者伪造成功了，我们有$m \neq m^{(j)}$. 假设$m$与$m^{(j)}$的第$i$个块不一致，即$m_i \neq m_i^{(j)}$. 那么显然$r||l||i||m_i$是新的块。<strong>NewBlock</strong>也发生。</p>
@@ -523,12 +522,12 @@ height:50vh;
 <ol>
 <li><p>当攻击者$A$用 $m$（长度为 $l$）进行$Mac_k(\cdot)$查询时:</p>
 <p>(a)将$m$分成长度为$n/4$的块$m_1, m_2,…m_d$（假设有$d$个块），最后不够的用0补足。</p>
-<p>(b)随机选择标识符$r \in {0,1}^{n/4}$, 对于$1 \leq i \leq d$, 用 $r||l||i||m_i$ 查询预言$Mac’_k(\cdot)$得到$t_i$.</p>
-<p>(c)返回 $&lt;r,t_1,…,t_d&gt;$.</p>
-<ol start="2">
-<li>当攻击者$A$输出伪造$(m, t = &lt;r,t_1,…,t_d&gt;$时，检查$NewBlock$是否发生：</li>
+<p>(b)随机选择标识符$r \in \{0,1\}^{n/4}$, 对于$1 \leq i \leq d$, 用 $r||l||i||m_i$ 查询预言$Mac’_k(\cdot)$得到$t_i$.</p>
+<p>(c)返回 $<r,t_1,...,t_d>$.</r,t_1,...,t_d></p>
+<ol>
+<li>当攻击者$A$输出伪造$(m, t = <r,t_1,...,t_d>$时，检查$NewBlock$是否发生：</r,t_1,...,t_d></li>
 </ol>
-<p>(a)若发生，假设$r||l||i||m_i$是新的块从未被认证过，则输出$&lt;r||l||i||m_i, t_i&gt;$.</p>
+<p>(a)若发生，假设$r||l||i||m_i$是新的块从未被认证过，则输出$<r||l||i||m_i, t_i>$.</r||l||i||m_i,></p>
 <p>(b)若未发生，输出失败。</p>
 </li>
 </ol>
@@ -542,7 +541,7 @@ height:50vh;
 <h2 id="3-1-基本构造"><a href="#3-1-基本构造" class="headerlink" title="3.1. 基本构造"></a>3.1. 基本构造</h2><p><strong>Construction 3.1:</strong></p>
 <p>假设$F$是伪随机函数，固定长度函数$l&gt;0$. 基本的CBC-MAC方案如下构造：</p>
 <ol>
-<li><p>$Gen(1^n)$: 随机选择$k \leftarrow {0, 1}^n$, 输出作为密钥。</p>
+<li><p>$Gen(1^n)$: 随机选择$k \leftarrow \{0, 1\}^n$, 输出作为密钥。</p>
 </li>
 <li><p>$Mac(k, m)$: 输入消息的长度为$l(n) \cdot n$, 进行如下计算：</p>
 <p>(a). 将$m$分成$m_1, m_2, … , m_l$, 每个$m_i$的长度为$n$.</p>
@@ -556,28 +555,28 @@ height:50vh;
 <p><strong>Theorem 3.2:</strong> 假设F是伪随机函数，$l$为多项式，则上述方案对于长度为$l(n) \cdot n$的消息来说是安全的MAC方案。</p>
 <p>下一节证明一个更一般的结论。</p>
 <h2 id="3-2-安全性证明"><a href="#3-2-安全性证明" class="headerlink" title="*3.2. 安全性证明"></a>*3.2. 安全性证明</h2><p><strong>本节稍有难度，可以选择跳过不影响后面学习。</strong></p>
-<p>定义CBC函数，输入为$({0,1}^n)^*$中的元素（也就是长度为n的倍数）以及长度为n的密钥映射到长度为n的字符串。</p>
+<p>定义CBC函数，输入为$(\{0,1\}^n)^*$中的元素（也就是长度为n的倍数）以及长度为n的密钥映射到长度为n的字符串。</p>
 <p>$CBC_k(x_1,…,x_l)=F_k(F_k( \cdots F_k(F_k(x_1) \oplus x_2) \oplus \cdots ) \oplus x_l)$.</p>
 <p>$|x_1|=|x_2|=\cdots=|x_l|=|k|=n$.</p>
-<p>一个字符串集合$P \subset ({0,1}^n)^*$是无前缀的如果它不包含空串以及任何字符串 $X \in P$ 都不是其它字符串 $X’ \in P$ 的前缀。</p>
+<p>一个字符串集合$P \subset (\{0,1\}^n)^*$是无前缀的如果它不包含空串以及任何字符串 $X \in P$ 都不是其它字符串 $X’ \in P$ 的前缀。</p>
 <p><strong>Theorem 3.3:</strong> 对于任意的概率多项式时间算法$D$, $D$ 能进行预言查询，但所有查询的字符串构成的集合是无前缀的。存在可忽略的函数$negl$, 使得，</p>
 <p>$|Pr[D^{CBC_k(\cdot)}(1^n)=1]-Pr[D^{f(\cdot)}(1^n)=1]| \leq negl(n)$.</p>
-<p>我们可以用一个编码函数$encode$, 将任意长度的字符串$m$映射到 $encode(m) \in ({0,1}^n)^*$, 然后输出$CBC_k(encode(m))$. 该编码方案需要是无前缀的。</p>
+<p>我们可以用一个编码函数$encode$, 将任意长度的字符串$m$映射到 $encode(m) \in (\{0,1\}^n)^*$, 然后输出$CBC_k(encode(m))$. 该编码方案需要是无前缀的。</p>
 <p>我们证明当CBC的“密钥”是一个随机函数$g$时的安全性，也就是说定义</p>
 <p>$CBC_g(x_1,…,x_l)=g(g( \cdots g(g(x_1) \oplus x_2) \oplus \cdots ) \oplus x_l)$.</p>
-<p>我们证明$CBC_g(\cdot)$与$({0,1}^n)^*$到${0,1}^n$上的随机函数就是不可区分。</p>
-<p><strong>Theorem 3.4:</strong> 固定$n \geq 1$, 取随机函数$g:{0,1}^n \rightarrow {0, 1}^n, f:$$({0,1}^n)^* \rightarrow {0,1}^n$, 对于任意（无时间限制）算法$D$, $D$ 能进行$q$次预言查询，但这$q$次查询的字符串构成的集合是无前缀的，并且所有的查询中最长的消息包含$l$个区块。则</p>
+<p>我们证明$CBC_g(\cdot)$与$(\{0,1\}^n)^*$到$\{0,1\}^n$上的随机函数就是不可区分。</p>
+<p><strong>Theorem 3.4:</strong> 固定$n \geq 1$, 取随机函数$g:\{0,1\}^n \rightarrow \{0, 1\}^n, f:$$(\{0,1\}^n)^* \rightarrow \{0,1\}^n$, 对于任意（无时间限制）算法$D$, $D$ 能进行$q$次预言查询，但这$q$次查询的字符串构成的集合是无前缀的，并且所有的查询中最长的消息包含$l$个区块。则</p>
 <p>$|Pr[D^{CBC_g(\cdot)}(1^n)=1]-Pr[D^{f(\cdot)}(1^n)=1]| \leq \frac{q^2 l^2}{2^n}$.</p>
-<p><strong>Proof of Theorem 3.4:</strong> 假设$P={X_1,…,X_q}$为无前缀的q次查询，每个$X_i \in ({0, 1}^n)^*$, 且$P$中最长的消息包含$l$个区块。对于任意的$t_1,…,t_q \in {0,1}^n$, 有$Pr[\forall i:f(X_i)=t_i] = 2^{-nq}$.</p>
-<p>我们称CBC是$(q,l,\delta)-smooth$的如果对于每个无前缀集合$P={X_1,…,X_q}$,  以及每个$t_1,…,t_q \in {0,1}^n$ ,有</p>
+<p><strong>Proof of Theorem 3.4:</strong> 假设$P=\{X_1,…,X_q\}$为无前缀的q次查询，每个$X_i \in (\{0, 1\}^n)^*$, 且$P$中最长的消息包含$l$个区块。对于任意的$t_1,…,t_q \in \{0,1\}^n$, 有$Pr[\forall i:f(X_i)=t_i] = 2^{-nq}$.</p>
+<p>我们称CBC是$(q,l,\delta)-smooth$的如果对于每个无前缀集合$P=\{X_1,…,X_q\}$,  以及每个$t_1,…,t_q \in \{0,1\}^n$ ,有</p>
 <p>$Pr[\forall i: CBC_g(X_i)=t_i] \geq (1-\delta) \cdot 2^{-nq}$.</p>
 <p>也就是说 $(q,l,\delta)-smooth$ 的CBC是 $\delta-close$ 真随机函数 $f$ 的。</p>
 <p><strong>Claim 3.5:</strong> $CBC_g$是$(q,l,\delta)-smooth$的，其中 $\delta = q^2l^2 \cdot 2^{-n}$.</p>
 <p><strong>下面假设Claim 3.5成立。</strong></p>
 <p>定义函数$\alpha(X_1,…,X_q;t_1,…, tq) = 1$当且仅当$D$查询$X_1,…,X_q$时返回$t_1,…,t_q$, 且$D$最后输出1.</p>
-<p>令$\overrightarrow{X} = {X_1,…,X_q}$, $\overrightarrow{t} = {t_1,…,t_q}$, 我们有</p>
+<p>令$\overrightarrow{X} = \{X_1,…,X_q\}$, $\overrightarrow{t} = \{t_1,…,t_q\}$, 我们有</p>
 <p>$\operatorname{Pr}\left[D^{\mathrm{CBC}_{g}(\cdot)}\left(1^{n}\right)=1\right]$</p>
-<p>$=\sum_{\vec{X} \text { prefix-free; } \vec{t}} \alpha(\vec{X}, \vec{t}) \cdot \operatorname{Pr}\left[\forall i : \mathrm{CBC}<em>{g}\left(X</em>{i}\right)=t_{i}\right]$</p>
+<p>$=\sum_{\vec{X} \text { prefix-free; } \vec{t}} \alpha(\vec{X}, \vec{t}) \cdot \operatorname{Pr}\left[\forall i : \mathrm{CBC}_{g}\left(X_{i}\right)=t_{i}\right]$</p>
 <p>$\geq \sum_{\vec{X} \text { prefix-free; } \vec{t}} \alpha(\vec{X}, \vec{t}) \cdot(1-\delta) \cdot \operatorname{Pr}\left[\forall i : f\left(X_{i}\right)=t_{i}\right]$</p>
 <p>$=(1-\delta) \cdot \operatorname{Pr}\left[D^{f(\cdot)}\left(1^{n}\right)=1\right]$,</p>
 <p>这证明了</p>
@@ -585,26 +584,26 @@ height:50vh;
 <p>完成<strong>Theorem 3.4</strong>的证明。</p>
 <p>下面进行Claim 3.5的证明。</p>
 <p><strong>Proof of Claim 3.5:</strong> </p>
-<p>令$X \in\left({0,1}^{n}\right)^{*}$, 且$X=x_1,…$并且$, |x_i|=n$.</p>
-<p>令$C_g(x)$是 计算$CBC_g(X)$过程中$g$的输入构成的集合。例如假设$X \in\left({0,1}^{n}\right)^{m}$, 那么</p>
-<p>$\mathcal{C}<em>{g}(X) \stackrel{\mathrm{def}}{=}\left(x</em>{1}, \mathrm{CBC}<em>{g}\left(x</em>{1}\right) \oplus x_{2}, \ldots, \mathrm{CBC}<em>{g}\left(x</em>{1}, \ldots, x_{m-1}\right) \oplus x_{m}\right)$.</p>
-<p>令$X \in\left({0,1}^{n}\right)^{m}$, $X’ \in\left({0,1}^{n}\right)^{m’}$.</p>
-<p>$C_g(X)=(I_1,…,I_m), C_g(X’)=(I’<em>1,…,I’</em>{m’})$.</p>
+<p>令$X \in\left(\{0,1\}^{n}\right)^{*}$, 且$X=x_1,…$并且$, |x_i|=n$.</p>
+<p>令$C_g(x)$是 计算$CBC_g(X)$过程中$g$的输入构成的集合。例如假设$X \in\left(\{0,1\}^{n}\right)^{m}$, 那么</p>
+<p>$\mathcal{C}_{g}(X) \stackrel{\mathrm{def}}{=}\left(x_{1}, \mathrm{CBC}_{g}\left(x_{1}\right) \oplus x_{2}, \ldots, \mathrm{CBC}_{g}\left(x_{1}, \ldots, x_{m-1}\right) \oplus x_{m}\right)$.</p>
+<p>令$X \in\left(\{0,1\}^{n}\right)^{m}$, $X’ \in\left(\{0,1\}^{n}\right)^{m’}$.</p>
+<p>$C_g(X)=(I_1,…,I_m), C_g(X’)=(I’_1,…,I’_{m’})$.</p>
 <p>称$X$内部存在非平凡碰撞如果存在 $I_i=I_j$ 但是 $i \neq j$.</p>
-<p>称$X,X’$之间存在非平凡碰撞如果存在 $I_i = I’<em>j$ 但是$\left(x</em>{1}, \ldots, x_{i}\right) \neq\left(x_{1}^{\prime}, \ldots, x_{j}^{\prime}\right)$.</p>
-<p>称字符串集合$P={X_1,…,X_q}$ 存在非平凡碰撞若存在 $X \in P$ 有内部碰撞或者存在$X,X’ \in P$之间存在碰撞。</p>
+<p>称$X,X’$之间存在非平凡碰撞如果存在 $I_i = I’_j$ 但是$\left(x_{1}, \ldots, x_{i}\right) \neq\left(x_{1}^{\prime}, \ldots, x_{j}^{\prime}\right)$.</p>
+<p>称字符串集合$P=\{X_1,…,X_q\}$ 存在非平凡碰撞若存在 $X \in P$ 有内部碰撞或者存在$X,X’ \in P$之间存在碰撞。</p>
 <p>定义事件 $Coll$ 为集合P存在非平凡碰撞。</p>
 <p>我们分两部来完成证明：</p>
-<p>第一步：如果 $Coll$ 未发生，则 $\operatorname{Pr}\left[\forall i : \operatorname{CBC}<em>{g}\left(X</em>{i}\right)=t_{i} | \overline{\mathrm{Coll}}\right]=2^{-n q}$.</p>
+<p>第一步：如果 $Coll$ 未发生，则 $\operatorname{Pr}\left[\forall i : \operatorname{CBC}_{g}\left(X_{i}\right)=t_{i} | \overline{\mathrm{Coll}}\right]=2^{-n q}$.</p>
 <p>第二步：证明 $Coll$ 发生的概率小于$\delta \leq q^2l^2\cdot 2^{-n}$.</p>
 <p>对于$X$, 随机均匀选择 $g(I_1)$ 的值，确定$I_2=g(I_1) \oplus x_2$, 随机均匀选择$g(I_2)$的值，如此重复，直到选择 $g(I_{m-1})$ 的随机值（无需选取$g(I_m)$的值，因为$g(I_m) \notin C_g(X)$）。用上述方式计算出字符串$X_1,…,X_q$对应的$C_g(X_1),…,C_g(X_q)$，然后就可检查事件 $Coll$ 是否发生。</p>
 <p>假设事件$Coll$未发生，那么$C_g(X_1),…,C_g(X_q)$中的最后一项必不相同。我们证明$g$在这些最后一项上的值未被确定，假设$C_g(X)$的最后一项$I_m$的$g$值已经被确定，那么肯定存在$I’_j$, $I_m = I’_j$并且 $I’_j$ 不是$C_g(X’)$的最后一项。但是由于事件$Coll$未发生，上述事件只有当$(x_1,…,x_m) = (x’_1,…,x’_j)$发生时才发生，但由于$X \neq X’$, 我们得到$X$是$X’$的前缀，这与$P$无前缀相矛盾。</p>
-<p>$CBC_g(X_i)$的值就是$g$在$C_g(X_i)$上最后一项的值。根据上述分析，$g$在最后一项上的值未被确定，所以从${0,1}^n$上独立均匀选出，选择到某个固定值的概率为$2^{-n}$. 选择任意的$t_1,…,t_q \in {0,1}^n$, 有</p>
-<p>$\operatorname{Pr}\left[\forall i : \operatorname{CBC}<em>{g}\left(X</em>{i}\right)=t_{i} | \overline{\mathrm{Coll}}\right]=2^{-n q}$.</p>
+<p>$CBC_g(X_i)$的值就是$g$在$C_g(X_i)$上最后一项的值。根据上述分析，$g$在最后一项上的值未被确定，所以从$\{0,1\}^n$上独立均匀选出，选择到某个固定值的概率为$2^{-n}$. 选择任意的$t_1,…,t_q \in \{0,1\}^n$, 有</p>
+<p>$\operatorname{Pr}\left[\forall i : \operatorname{CBC}_{g}\left(X_{i}\right)=t_{i} | \overline{\mathrm{Coll}}\right]=2^{-n q}$.</p>
 <p>第一步证明完毕，下面进行第二步证明。</p>
 <p>给定$X_i, X_j \in P$, 令$Coll_{i,j}$为$X_i, X_j$中内部存在碰撞或者$X_i,X_j$之间存在碰撞，则</p>
 <p>$Coll =\lor_{i, j} \text { Coll }_{i, j}$,</p>
-<p>$\operatorname{Pr}[\mathrm{Coll}] \leq \sum_{i, j : i&lt;j} \operatorname{Pr}\left[\mathrm{Coll}<em>{i, j}\right]=\left(\begin{array}{c}{q} \ {2}\end{array}\right) \cdot \operatorname{Pr}\left[\mathrm{Coll}</em>{i, j}\right] \leq \frac{q^{2}}{2} \cdot \operatorname{Pr}\left[\mathrm{Coll}_{i, j}\right]$.</p>
+<p>$\operatorname{Pr}[\mathrm{Coll}] \leq \sum_{i, j : i&lt;j} \operatorname{Pr}\left[\mathrm{Coll}_{i, j}\right]=\left(\begin{array}{c}{q} \ {2}\end{array}\right) \cdot \operatorname{Pr}\left[\mathrm{Coll}_{i, j}\right] \leq \frac{q^{2}}{2} \cdot \operatorname{Pr}\left[\mathrm{Coll}_{i, j}\right]$.</p>
 <p>令$X=X_i, X’=X_j$, 两者的块长度都是$l$. $X=(x_1,…,x_l), X’=(x’_1,…,x’_l)$, $t$是最大的整数使得</p>
 <p>$(x_1,…,x_t)=(x’_1,…,x’_t)$.（其中 $t &lt; l$ 否则 $X=X’$）</p>
 <p>注意到此时$(I_1,…,I_t) = (I’_1,…,I’_t)$.</p>
@@ -616,14 +615,14 @@ height:50vh;
 <p> $i$ 从 $t+1$ 到 $l-1$:</p>
 <p>​    随机均匀选择 $g(I_{t+1}),g(I_{t+2}),…,g(I_{l-1})$ 的值从而确定 $I_{t+2}, I_{t+3},…,I_{l}$.</p>
 <p>$i$ 从 $l$ 到 $2l-t-2$:</p>
-<p>​    随机均匀选择 $g(I’<em>{t+1}),g(I’</em>{t+2}),…,g(I’<em>{l-1})$ 的值从而确定 $I’</em>{t+2}, I’<em>{t+3},…,I’</em>{l}$.</p>
+<p>​    随机均匀选择 $g(I’_{t+1}),g(I’_{t+2}),…,g(I’_{l-1})$ 的值从而确定 $I’_{t+2}, I’_{t+3},…,I’_{l}$.</p>
 <p>假设事件$Coll(k)$表示第$k$步发生了非平凡碰撞，那么</p>
-<p>$\operatorname{Pr}\left[\mathrm{Coll}<em>{i, j}\right]=\operatorname{Pr}\left[\lor</em>{k} \operatorname{Coll}(k)\right] \leq \operatorname{Pr}[\operatorname{Coll}(1)]+\sum_{k=2}^{2l-t-2} \operatorname{Pr}[\operatorname{Coll}(k) | \overline{\operatorname{Coll}(k-1)}]$.</p>
+<p>$\operatorname{Pr}\left[\mathrm{Coll}_{i, j}\right]=\operatorname{Pr}\left[\lor_{k} \operatorname{Coll}(k)\right] \leq \operatorname{Pr}[\operatorname{Coll}(1)]+\sum_{k=2}^{2l-t-2} \operatorname{Pr}[\operatorname{Coll}(k) | \overline{\operatorname{Coll}(k-1)}]$.</p>
 <p>若 $k&lt;t$, $Coll(k-1)$未发生，则$(I_1,..,I_k)$各不相同，$I_{k+1}=g(I_k) \oplus x_{k+1}$与前$k$个值发生碰撞的概率为$\frac{k}{2^n}$, 所以$\operatorname{Pr}[\operatorname{Coll}(k) | \overline{\operatorname{Coll}(k-1)}]=k / 2^{n}$.</p>
 <p>若 $k=t$, $\operatorname{Pr}[\operatorname{Coll}(k) | \overline{\operatorname{Coll}(k-1)}] \leq 2t / 2^{n}$, 因为这一步生成了两个值$I_{t+1}, I’_{t+1}$且不相同。</p>
 <p>若 $k &gt; t$, $\operatorname{Pr}[\operatorname{Coll}(k) | \overline{\operatorname{Coll}(k-1)}] \leq (k+1) / 2^{n}$, 因为第$t$步多生成了一个值，所以加上1.</p>
 <p>我们得出</p>
-<p>$\operatorname{Pr}\left[\mathrm{Coll}<em>{i, j}\right] \leq 2^{-n} \cdot\left(\sum</em>{k=1}^{t-1} k+2 t+\sum_{k=t+1}^{2l-t-2}(k+1)\right) $</p>
+<p>$\operatorname{Pr}\left[\mathrm{Coll}_{i, j}\right] \leq 2^{-n} \cdot\left(\sum_{k=1}^{t-1} k+2 t+\sum_{k=t+1}^{2l-t-2}(k+1)\right) $</p>
 <p>$= 2^{-n} \cdot \sum_{k=2}^{2l-t-1} k=2^{-n} \cdot(2 l - t+1) \cdot(2l - t-2)/2 &lt; 2 \ell^{2} \cdot 2^{-n}$.</p>
 <p>所以，我们有</p>
 <p>$Pr[Coll] \leq \frac{q^2}{2}Pr[Coll_{i,j}] &lt; q^2l^2 \cdot 2^{-n} = \delta$.</p>
@@ -640,50 +639,49 @@ height:50vh;
 <li>令$Q$表示攻击者进行的加密查询集合，挑战者计算$m=Dec_k(c)$, 若密文无效输出$\perp$.攻击者在该游戏中成功当且仅当$m \neq \perp$且$m \notin Q$.</li>
 </ol>
 <p>把上述攻击者成功的事件记为事件$S$.</p>
-<p>*<em>定义4.1: *</em>我们称一个对称加密方案 $\Pi$ 是不可伪造的，如果对于任意的概率多项式时间攻击者，存在一个可忽略的函数 $negl$ 使得$Pr[S] \leq negl(n)$.</p>
+<p><strong>定义4.1: </strong>我们称一个对称加密方案 $\Pi$ 是不可伪造的，如果对于任意的概率多项式时间攻击者，存在一个可忽略的函数 $negl$ 使得$Pr[S] \leq negl(n)$.</p>
 <p><strong>定义4.2:</strong> 如果一个加密方案是CCA安全并且不可伪造的，那么称该方案是一个认证加密。</p>
-<p>##4.2. 通用构造</p>
-<p>假设$\Pi_E=(Enc,Dec)$为CPA安全的加密方案，$\Pi_M=(Mac, Vrfy)$ 为MAC方案，$k_E, k_M$为对应方案的密钥。考虑下面三种方案：</p>
+<h2 id="4-2-通用构造"><a href="#4-2-通用构造" class="headerlink" title="4.2. 通用构造"></a>4.2. 通用构造</h2><p>假设$\Pi_E=(Enc,Dec)$为CPA安全的加密方案，$\Pi_M=(Mac, Vrfy)$ 为MAC方案，$k_E, k_M$为对应方案的密钥。考虑下面三种方案：</p>
 <ol>
-<li><strong>加密并认证：</strong>密文为$&lt;c,t&gt;$, 其中$c \leftarrow Enc_{k_E}(m), t \leftarrow Mac_{k_M}(m)$. 接收者先解密得到$m$, 再验证$Vrfy(m,t)=1$是否成立，若成立，输出$m$, 反之输出错误。</li>
+<li><strong>加密并认证：</strong>密文为$<c,t>$, 其中$c \leftarrow Enc_{k_E}(m), t \leftarrow Mac_{k_M}(m)$. 接收者先解密得到$m$, 再验证$Vrfy(m,t)=1$是否成立，若成立，输出$m$, 反之输出错误。</c,t></li>
 <li><strong>先认证，再加密：</strong>密文为$c$, 先计算$t \leftarrow Mac_{k_M}(m)$, 再计算$c \leftarrow Enc_{k_E}(m||t)$. 接收者先解密得到$m||t$, 再验证$Vrfy(m,t)=1$是否成立，若成立，输出$m$, 反之输出错误。</li>
-<li><strong>先加密，再认证：</strong>密文为$&lt;c,t&gt;$, 先计算$c \leftarrow Enc_{k_E}(m)$, 再计算$t \leftarrow Mac_{k_M}(c)$, 接收者先验证$Vrfy(c,t)=1$是否成立，若成立解密出$m$, 反之输出错误。</li>
+<li><strong>先加密，再认证：</strong>密文为$<c,t>$, 先计算$c \leftarrow Enc_{k_E}(m)$, 再计算$t \leftarrow Mac_{k_M}(c)$, 接收者先验证$Vrfy(c,t)=1$是否成立，若成立解密出$m$, 反之输出错误。</c,t></li>
 </ol>
 <p>注意MAC方案不保证不泄露原文的一些消息，所以直接计算明文的MAC值并作为密文的一部分并不安全，方案1，2不适用。</p>
 <p>考虑第3种方案，先加密，后认证：</p>
 <p><strong>Construction 4.3:</strong> </p>
 <p>假设$\Pi_E=(Enc,Dec)$为私钥加密方案，$\Pi_M=(Mac, Vrfy)$ 为消息认证编码。定义如下的私钥加密方案：</p>
 <ol>
-<li>$Gen’$: 随机均匀选择密钥$k_E, k_M \in {0,1}^n$.</li>
-<li>$Enc’$: 输入消息$m$以及密钥$k_E, k_M$, 计算$c \leftarrow Enc_{k_E}(m)$, 再计算$t \leftarrow Mac_{k_M}(c)$, 输出密文$&lt;c,t&gt;$.</li>
-<li>$Dec’$: 输入密文$&lt;c,t&gt;$, 密钥$k_E, k_M$, 首先验证$Vrfy(c, t)=1$是否成立，若成立，输出$m=Dec_{k_E}(c)$, 反之输出$\perp$.</li>
+<li>$Gen’$: 随机均匀选择密钥$k_E, k_M \in \{0,1\}^n$.</li>
+<li>$Enc’$: 输入消息$m$以及密钥$k_E, k_M$, 计算$c \leftarrow Enc_{k_E}(m)$, 再计算$t \leftarrow Mac_{k_M}(c)$, 输出密文$<c,t>$.</c,t></li>
+<li>$Dec’$: 输入密文$<c,t>$, 密钥$k_E, k_M$, 首先验证$Vrfy(c, t)=1$是否成立，若成立，输出$m=Dec_{k_E}(c)$, 反之输出$\perp$.</c,t></li>
 </ol>
 <p><strong>Theorem 4.4:</strong> 假设$\Pi_E$为CPA安全的私钥加密方案，$\Pi_M$是安全的消息认证编码，则上述构造为一个认证加密方案。</p>
 <p><strong>Proof of Theorem 4.4:</strong> 非形式化地说，由于密文包含 $c$ 的MAC值，而由于我们假设$\Pi_M$是不可伪造的MAC方案，所以攻击者无法伪造出$c$的MAC值，也就是说无法伪造出有效的密文。这就说明了该方案是不可伪造的方案。并且由于密文不可伪造性，攻击者进行解密查询的密文都是无效的（有可忽略的概率可能有效），解密预言返回$\perp$, 所以解密预言并没有给攻击者额外的帮助，所以若 $\Pi_E$ 是CPA安全的话，该方案是CCA安全的。</p>
 <p>假设$A$是概率多项式时间的攻击者在CCA-Game中攻击构造4.3.</p>
-<p>称密文$&lt;c,t&gt;$是新的如果$A$没从加密预言中获得过$&lt;c,t&gt;$.</p>
+<p>称密文$<c,t>$是新的如果$A$没从加密预言中获得过$<c,t>$.</c,t></c,t></p>
 <p>定义事件$ValidQuery$为$A$提交给解密预言的密文是新的且是有效的，$Vrfy(c,t)=1$.</p>
 <p><strong>Claim 4.5:</strong> $Pr[ValidQuery]$是可以忽略的。</p>
 <p><strong>Proof of Claim 4.5:</strong> 令$q(n)$为攻击者$A$进行解密查询的次数，我们构造新的攻击者$A_M$, 把$A$作为子程序调用，在MAC伪造Game中攻击MAC方案$\Pi_M$.</p>
 <p>攻击者$A_M$: 输入$1^n$, 允许其能进行MAC预言查询$Mac_{k_M}(\cdot)$.</p>
 <ol>
-<li><p>$k_E \leftarrow {0,1}^n, i \in {1,2,…,q(n)}$.</p>
+<li><p>$k_E \leftarrow \{0,1\}^n, i \in \{1,2,…,q(n)\}$.</p>
 </li>
 <li><p>当$A$用$m$进行加密查询时：</p>
 <p>(1). $c \leftarrow Enc_{k_E}(m)$,</p>
-<p>(2). 用$c$进行MAC预言查询，获得$c \leftarrow Mac_{k_M}(\cdot)$. 将$&lt;c,t&gt;$返回给$A$.</p>
+<p>(2). 用$c$进行MAC预言查询，获得$c \leftarrow Mac_{k_M}(\cdot)$. 将$<c,t>$返回给$A$.</c,t></p>
 <p>(3). 用同样的方式生成挑战密文。</p>
 </li>
-<li><p>当$A$用$&lt;c,t&gt;$进行解密查询时，若这恰好是第$i$次查询，$A_M$直接输出$&lt;c,t&gt;$, 否则：</p>
-<p>(1). 若$&lt;c,t&gt;$是之前$A$用$m$加密查询生成的，直接返回$m$.</p>
+<li><p>当$A$用$<c,t>$进行解密查询时，若这恰好是第$i$次查询，$A_M$直接输出$<c,t>$, 否则：</c,t></c,t></p>
+<p>(1). 若$<c,t>$是之前$A$用$m$加密查询生成的，直接返回$m$.</c,t></p>
 <p>(2). 否则输出$\perp$.</p>
 </li>
 </ol>
 <p>显然$A_E$是概率多项式时间算法。</p>
-<p>直观上看，$A_M$预测$A$第$i$次查询 $&lt;c,t&gt;$ 是新的且有效的查询。则 $&lt;c,t&gt;$ 从未被$A_M$查询过，$A_M$ 成功伪造了$c$ 的MAC值$t$. </p>
+<p>直观上看，$A_M$预测$A$第$i$次查询 $<c,t>$ 是新的且有效的查询。则 $<c,t>$ 从未被$A_M$查询过，$A_M$ 成功伪造了$c$ 的MAC值$t$. </c,t></c,t></p>
 <p>令事件$S_M$为$A_M$成功伪造了$MAC$值。$A$进行新且有效查询的概率为$Pr[ValidQuery]$, 该查询恰好是第$i$次查询的概率为$Pr[ValidQuery]/q(n)$. 所以$Pr[S_M] = Pr[ValidQuery]/q(n)$. 而我们假设 $\Pi_M$ 是安全的MAC方案，所以$Pr[S_M]$是可忽略的，而又$q(n)$是多项式，所以$Pr[ValidQuery]$ 也是可忽略的。</p>
 <p>下面证构造3.5 $\Pi’$ 是密文不可伪造的。</p>
-<p>假设攻击者 $A’$ 能对方案 $\Pi’$ 进行密文伪造，$A$将$A’$作为子程序调用，当$A’$成功伪造$&lt;c,t&gt;$时，$A$ 用 $&lt;c,t&gt;$进行密文查询。但是我们已经证明$A$进行有效密文查询的概率可忽略，所以$A’$伪造成功的概率也可忽略，所以 $\Pi’$ 是不可伪造的加密方案。</p>
+<p>假设攻击者 $A’$ 能对方案 $\Pi’$ 进行密文伪造，$A$将$A’$作为子程序调用，当$A’$成功伪造$<c,t>$时，$A$ 用 $<c,t>$进行密文查询。但是我们已经证明$A$进行有效密文查询的概率可忽略，所以$A’$伪造成功的概率也可忽略，所以 $\Pi’$ 是不可伪造的加密方案。</c,t></c,t></p>
 <p>下面证$\Pi’$ 是CCA安全的。</p>
 <p>令事件 $S$ 为攻击者$A$在CCA游戏中成功击破了方案$\Pi’$.</p>
 <p>$Pr[S] = Pr[S \land ValidQuery]+Pr[S \land \overline{ValidQuery}] \leq Pr[ValidQuery] + Pr[S \land \overline{ValidQuery}]$.</p>
@@ -693,19 +691,19 @@ height:50vh;
 <p>我们构造攻击者$A_E$在CPA-Game中攻击方案$\Pi_E$.</p>
 <p>攻击者$A_E$: 输入为$1^n$, 能进行加密查询$Enc_{k_E}(\cdot)$.</p>
 <ol>
-<li><p>$k_M \leftarrow {0,1}^n$.</p>
+<li><p>$k_M \leftarrow \{0,1\}^n$.</p>
 </li>
 <li><p>当$A$用消息$m$进行加密查询时，</p>
 <p>(1). 用$m$进行加密查询$Enc_{k_E}(\cdot)$, 获得$c \leftarrow Enc_{k_E}(\cdot)$.</p>
-<p>(2). 计算$t \leftarrow Mac_{k_M}(c)$, 将$&lt;c,t&gt;$返回给$A$.</p>
+<p>(2). 计算$t \leftarrow Mac_{k_M}(c)$, 将$<c,t>$返回给$A$.</c,t></p>
 </li>
-<li><p>当$A$用$&lt;c,t&gt;$进行解密查询时，</p>
-<p>(1). 若$&lt;c,t&gt;$是之前消息$m$加密查询的返回值，直接输出$m$.</p>
+<li><p>当$A$用$<c,t>$进行解密查询时，</c,t></p>
+<p>(1). 若$<c,t>$是之前消息$m$加密查询的返回值，直接输出$m$.</c,t></p>
 <p>(2). 反之，输出$\perp$.</p>
 </li>
 <li><p>$A$提交两段等长明文$m_0, m_1$, </p>
 <p>(1). $A_E$ 将这两段明文提交给自己的挑战者得到挑战密文$c$.</p>
-<p>(2). 计算$t \leftarrow Mac_{k_M}(c)$, 将$&lt;c,t&gt;$作为$A$的挑战密文.</p>
+<p>(2). 计算$t \leftarrow Mac_{k_M}(c)$, 将$<c,t>$作为$A$的挑战密文.</c,t></p>
 </li>
 <li><p>当$A$输出1个bit后，$A_E$ 输出相同的bit.</p>
 </li>
@@ -742,8 +740,8 @@ height:50vh;
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2020/12/08/interactive-proofs/" title= "交互式证明（1）：简介">
-                    <div class="prevTitle">交互式证明（1）：简介</div>
+                <a href= "/2020/12/08/hello-world/" title= "Hello World张双俊">
+                    <div class="prevTitle">Hello World张双俊</div>
                 </a>
             
         </li>
@@ -866,7 +864,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-消息认证编码-定义"><span class="toc-number">1.</span> <span class="toc-text">1. 消息认证编码-定义</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-消息认证编码的定义"><span class="toc-number">1.1.</span> <span class="toc-text">1.1. 消息认证编码的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-MAC的安全性定义"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 MAC的安全性定义</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-构造安全的MAC"><span class="toc-number">2.</span> <span class="toc-text">2. 构造安全的MAC</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-固定消息长度的MAC方案"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 固定消息长度的MAC方案</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-CBC-MAC"><span class="toc-number">3.</span> <span class="toc-text">3. CBC-MAC</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-基本构造"><span class="toc-number">3.1.</span> <span class="toc-text">3.1. 基本构造</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-安全性证明"><span class="toc-number">3.2.</span> <span class="toc-text">*3.2. 安全性证明</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-认证加密"><span class="toc-number">4.</span> <span class="toc-text">4. 认证加密</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-定义"><span class="toc-number">4.1.</span> <span class="toc-text">4.1. 定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-CCA安全加密"><span class="toc-number">4.2.</span> <span class="toc-text">4.3. CCA安全加密</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-消息认证编码-定义"><span class="toc-number">1.</span> <span class="toc-text">1. 消息认证编码-定义</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-消息认证编码的定义"><span class="toc-number">1.1.</span> <span class="toc-text">1.1. 消息认证编码的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-MAC的安全性定义"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 MAC的安全性定义</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-构造安全的MAC"><span class="toc-number">2.</span> <span class="toc-text">2. 构造安全的MAC</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-固定消息长度的MAC方案"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 固定消息长度的MAC方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-任意消息长度的MAC方案"><span class="toc-number">2.2.</span> <span class="toc-text">2.2. 任意消息长度的MAC方案</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-CBC-MAC"><span class="toc-number">3.</span> <span class="toc-text">3. CBC-MAC</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-基本构造"><span class="toc-number">3.1.</span> <span class="toc-text">3.1. 基本构造</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-安全性证明"><span class="toc-number">3.2.</span> <span class="toc-text">*3.2. 安全性证明</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-认证加密"><span class="toc-number">4.</span> <span class="toc-text">4. 认证加密</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-定义"><span class="toc-number">4.1.</span> <span class="toc-text">4.1. 定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-通用构造"><span class="toc-number">4.2.</span> <span class="toc-text">4.2. 通用构造</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-CCA安全加密"><span class="toc-number">4.3.</span> <span class="toc-text">4.3. CCA安全加密</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -906,20 +904,9 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 4
+        Total : 3
         </div>
         <!-- search  -->
         
@@ -940,11 +927,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/08</span><a class="archive-post-title" href= "/2020/12/08/interactive-proofs/" >交互式证明（1）：简介</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/08</span><a class="archive-post-title" href= "/2020/12/08/hello-world/" >Hello World张双俊</a>
         </li>
     
@@ -957,8 +939,6 @@ top:50vh;
   </div>
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
-    
-        <span class="sidebar-tag-name" data-tags="交互式证明，理论计算机科学"><span class="iconfont-archer">&#xe606;</span>交互式证明，理论计算机科学</span>
     
         <span class="sidebar-tag-name" data-tags="leetcode"><span class="iconfont-archer">&#xe606;</span>leetcode</span>
     
@@ -996,8 +976,6 @@ jsonContent:
 </div>
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
-    
-        <span class="sidebar-category-name" data-categories="理论计算机科学"><span class="iconfont-archer">&#xe60a;</span>理论计算机科学</span>
     
         <span class="sidebar-category-name" data-categories="编程算法"><span class="iconfont-archer">&#xe60a;</span>编程算法</span>
     
@@ -1050,7 +1028,8 @@ jsonContent:
             all[i].SourceElement().parentNode.className += ' has-jax';
     });
 </script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 </body>
 </html>
 

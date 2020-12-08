@@ -370,8 +370,8 @@
 1.1. 消息认证编码的定义一个消息认证编码MAC（Message Authentication Code）由三个概率多项式（Gen, Mac, Vrfy）时间的算法构成： 
 
 Gen: 输入安全参数$1^n$, 输出密钥$k$, 要求$|k| \geq n$.
-Mac: 输入密钥$k$, 消息$m \in {0, 1}^*$, 输出标签tag, $t \leftarrow Mac_k(m)$.
-Vrfy: 输入密钥$k$, 标签$t$, 输出比特$b \leftarrow V...
+Mac: 输入密钥$k$, 消息$m \in \{0, 1\}^*$, 输出标签tag, $t \leftarrow Mac_k(m)$.
+Vrfy: 输入密钥$k$, 标签$t$, 输出比特$b \leftarrow...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -379,35 +379,6 @@ Vrfy: 输入密钥$k$, 标签$t$, 输出比特$b \leftarrow V...
                 <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/12/08</span>
             </div>
             <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/12/08/interactive-proofs/" >
-            
-                <span>交互式证明（1）：简介</span>
-        </a>
-        <div class="abstract-content">
-            
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/12/08</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "交互式证明，理论计算机科学">交互式证明，理论计算机科学</a>
-    
-</div>
             
         </div>
     </article>
@@ -425,9 +396,9 @@ Vrfy: 输入密钥$k$, 标签$t$, 输出比特$b \leftarrow V...
         <div class="abstract-content">
             Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.在实践中时间
 Quick StartCreate a new post$ hexo new "My New Post"
+
 More info: Writing
-Run server$ hexo server
-...
+Run server$ hexo server...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -563,20 +534,9 @@ Run server$ hexo server
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 4
+        Total : 3
         </div>
         <!-- search  -->
         
@@ -597,11 +557,6 @@ Run server$ hexo server
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/08</span><a class="archive-post-title" href= "/2020/12/08/interactive-proofs/" >交互式证明（1）：简介</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/08</span><a class="archive-post-title" href= "/2020/12/08/hello-world/" >Hello World张双俊</a>
         </li>
     
@@ -614,8 +569,6 @@ Run server$ hexo server
   </div>
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
-    
-        <span class="sidebar-tag-name" data-tags="交互式证明，理论计算机科学"><span class="iconfont-archer">&#xe606;</span>交互式证明，理论计算机科学</span>
     
         <span class="sidebar-tag-name" data-tags="leetcode"><span class="iconfont-archer">&#xe606;</span>leetcode</span>
     
@@ -653,8 +606,6 @@ jsonContent:
 </div>
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
-    
-        <span class="sidebar-category-name" data-categories="理论计算机科学"><span class="iconfont-archer">&#xe60a;</span>理论计算机科学</span>
     
         <span class="sidebar-category-name" data-categories="编程算法"><span class="iconfont-archer">&#xe60a;</span>编程算法</span>
     
@@ -705,7 +656,8 @@ jsonContent:
             all[i].SourceElement().parentNode.className += ' has-jax';
     });
 </script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 </body>
 </html>
 
