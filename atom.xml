@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://doublejun12.github.io/"/>
-  <updated>2020-12-10T17:06:46.341Z</updated>
+  <updated>2020-12-11T16:23:55.998Z</updated>
   <id>https://doublejun12.github.io/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Max-E3SAT问题的不可近似性：从Cook-Levin到Håstad&#39;s E3-SAT Hardness</title>
+    <link href="https://doublejun12.github.io/2020/12/11/max-3sat/"/>
+    <id>https://doublejun12.github.io/2020/12/11/max-3sat/</id>
+    <published>2020-12-11T06:02:37.000Z</published>
+    <updated>2020-12-11T16:23:55.998Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;1-前言&quot;&gt;&lt;a href=&quot;#1-前言&quot; class=&quot;headerlink&quot; title=&quot;1. 前言&quot;&gt;&lt;/a&gt;1. 前言&lt;/h1&gt;&lt;p&gt;​        这学期花费了一段时间看了一遍Venkatesan
+        
+      
+    
+    </summary>
+    
+      <category term="计算复杂性" scheme="https://doublejun12.github.io/categories/%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E6%80%A7/"/>
+    
+    
+      <category term="NP完全定理" scheme="https://doublejun12.github.io/tags/NP%E5%AE%8C%E5%85%A8%E5%AE%9A%E7%90%86/"/>
+    
+      <category term="不可近似性" scheme="https://doublejun12.github.io/tags/%E4%B8%8D%E5%8F%AF%E8%BF%91%E4%BC%BC%E6%80%A7/"/>
+    
+      <category term="PCP定理" scheme="https://doublejun12.github.io/tags/PCP%E5%AE%9A%E7%90%86/"/>
+    
+      <category term="Parallel Repetition定理" scheme="https://doublejun12.github.io/tags/Parallel-Repetition%E5%AE%9A%E7%90%86/"/>
+    
+  </entry>
   
   <entry>
     <title>消息认证编码，认证加密</title>
