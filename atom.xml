@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://doublejun12.github.io/"/>
-  <updated>2020-12-14T17:45:02.138Z</updated>
+  <updated>2020-12-15T18:20:01.988Z</updated>
   <id>https://doublejun12.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://doublejun12.github.io/2020/12/11/max-3sat/"/>
     <id>https://doublejun12.github.io/2020/12/11/max-3sat/</id>
     <published>2020-12-11T06:02:37.000Z</published>
-    <updated>2020-12-14T17:45:02.138Z</updated>
+    <updated>2020-12-15T18:20:01.988Z</updated>
     
     <summary type="html">
     
@@ -39,13 +39,15 @@
       <category term="计算复杂性" scheme="https://doublejun12.github.io/categories/%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E6%80%A7/"/>
     
     
-      <category term="NP完全定理" scheme="https://doublejun12.github.io/tags/NP%E5%AE%8C%E5%85%A8%E5%AE%9A%E7%90%86/"/>
+      <category term="NP Completeness" scheme="https://doublejun12.github.io/tags/NP-Completeness/"/>
     
-      <category term="不可近似性" scheme="https://doublejun12.github.io/tags/%E4%B8%8D%E5%8F%AF%E8%BF%91%E4%BC%BC%E6%80%A7/"/>
+      <category term="Hardness of Approximation" scheme="https://doublejun12.github.io/tags/Hardness-of-Approximation/"/>
     
-      <category term="PCP定理" scheme="https://doublejun12.github.io/tags/PCP%E5%AE%9A%E7%90%86/"/>
+      <category term="PCP Theorem" scheme="https://doublejun12.github.io/tags/PCP-Theorem/"/>
     
-      <category term="Parallel Repetition定理" scheme="https://doublejun12.github.io/tags/Parallel-Repetition%E5%AE%9A%E7%90%86/"/>
+      <category term="Parallel Repetition Theorem" scheme="https://doublejun12.github.io/tags/Parallel-Repetition-Theorem/"/>
+    
+      <category term="Property Testing" scheme="https://doublejun12.github.io/tags/Property-Testing/"/>
     
   </entry>
   
