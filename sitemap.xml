@@ -4,7 +4,7 @@
   <url>
     <loc>https://doublejun12.github.io/about/index.html</loc>
     
-    <lastmod>2020-12-24T12:58:08.364Z</lastmod>
+    <lastmod>2020-12-24T13:07:21.917Z</lastmod>
     
   </url>
   
@@ -37,21 +37,14 @@
   </url>
   
   <url>
-    <loc>https://doublejun12.github.io/tags/index.html</loc>
-    
-    <lastmod>2020-04-05T02:43:43.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://doublejun12.github.io/friends/index.html</loc>
-    
-    <lastmod>2020-04-05T02:43:43.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://doublejun12.github.io/categories/index.html</loc>
+    
+    <lastmod>2020-04-05T02:43:43.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://doublejun12.github.io/archives/index.html</loc>
     
     <lastmod>2020-04-05T02:43:43.000Z</lastmod>
     
@@ -65,7 +58,14 @@
   </url>
   
   <url>
-    <loc>https://doublejun12.github.io/archives/index.html</loc>
+    <loc>https://doublejun12.github.io/friends/index.html</loc>
+    
+    <lastmod>2020-04-05T02:43:43.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://doublejun12.github.io/tags/index.html</loc>
     
     <lastmod>2020-04-05T02:43:43.000Z</lastmod>
     
