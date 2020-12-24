@@ -28,7 +28,7 @@
 <meta property="og:site_name" content="SJ Zhang&#39;s Blog">
 <meta property="og:description" content="1. 前言​        这学期花费了一段时间看了一遍Venkatesan Guruswami和Ryan O’Donnell两位大神关于PCP定理和不可近似性的lecture notes。PCP定理本身不必多说，后面关于不可近似性的内容也属实精彩。一直想写点东西把这方面的知识从头到尾总结一下，于是就诞生了这篇文章。本文预计从1971年Stephen Cook证明3SAT是$\mathcal{NP">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-12-24T14:02:06.971Z">
+<meta property="og:updated_time" content="2020-12-24T14:08:25.147Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Max-E3SAT问题的不可近似性：从Cook-Levin到Håstad&#39;s E3-SAT Hardness">
 <meta name="twitter:description" content="1. 前言​        这学期花费了一段时间看了一遍Venkatesan Guruswami和Ryan O’Donnell两位大神关于PCP定理和不可近似性的lecture notes。PCP定理本身不必多说，后面关于不可近似性的内容也属实精彩。一直想写点东西把这方面的知识从头到尾总结一下，于是就诞生了这篇文章。本文预计从1971年Stephen Cook证明3SAT是$\mathcal{NP">
@@ -296,7 +296,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">7.5k</span>阅读时长: <span class="post-count reading-time">29 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">10.7k</span>阅读时长: <span class="post-count reading-time">42 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -552,9 +552,9 @@ height:50vh;
 <p><strong>定理4.6[Feige91]：</strong>若$k$是偶数，则$w(NA^k)=2^{-k/2}=(1/\sqrt{2})^k$。</p>
 <p>也就是说证明者获胜的概率确实是随着$k$的增大指数级减小的。事实上对于任何2P1R Game，该现象都会发生，这就是复杂性领域著名的Parallel Repetition Theorem。</p>
 <h2 id="4-4-Gap无限放大：-Parallel-Repetition定理"><a href="#4-4-Gap无限放大：-Parallel-Repetition定理" class="headerlink" title="4.4 Gap无限放大： Parallel Repetition定理"></a>4.4 Gap无限放大： Parallel Repetition定理</h2><p>​        1995年，Raz证明了如下定理：</p>
-<p><strong>定理4.5[Raz95]”Parallel Repetition Theorem”：</strong> 令$s<1$ 和$\left| a \right|$为两个常数，则存在$s^{\prime}<1$（仅依靠于$s$和$\left| \right|$）使得对于任意的2p1r game g，若该game的答案集合为$a$且$w(g)="s$，则对于任意的$k">1$，有$w(G^k)&lt;(s^{\prime})^k$。</1$></p>
+<p><strong>定理4.5[Raz95]”Parallel Repetition Theorem”: </strong>令$s&lt;1$ 以及$|A|$为两个常数。则存在$s’<1$（仅依靠于$s$和$a$）使得对于任意的2p1r game g，若该game的答案集合为$a$且$w(g)="s$，则对于任意的$k">1$，有$w(G^k)&lt;(s’)^k$。</1$（仅依靠于$s$和$a$）使得对于任意的2p1r></p>
 <p>注意到如果令$k=O(\log 1/\epsilon)$，则有$w(G^k)&lt;\epsilon$并且答案集合的大小为poly($1/\epsilon$)。此时我们可以将Label Cover问题的实例看成是一个2P1R Game G，并将该Game并行重复$O(\log 1/\epsilon)$次，该Game仍然是一个Label Cover问题实例，可以验证并行重复仍然保持正则与投影属性。所以我们可以从Parallel Repetition Theorem得到如下定理。</p>
-<p><strong>定理4.6：</strong>对于任意的常数$\epsilon&gt;0$，存在字母表$\Sigma$，使得<strong>$GAP-LC(\Sigma)_{1,\epsilon }$</strong>是NP-hard的。</p>
+<p><strong>定理4.6：</strong>对于任意的常数$\epsilon&gt;0$，存在字母表$\Sigma$，使得<strong>$GAP-LC(\Sigma)_{1, \epsilon}$</strong>是NP-hard的。</p>
 <p>​        注意该定理与引理4.2的区别，引理4.2说的是存在，该定理说的是任意。也就是说我们可以将Lable Cover的问题的gap进行无限放大，该问题仍然还是NP难问题。作为Parallel Repetition Theorem的推论我们可以得到字母表的大小$\Sigma$的大小为$|\Sigma|^k=poly(1/\epsilon)$（Pretty Cool~）。定理4.6的完整证明同样出现在Raz95年的论文中，在94年，Feige与Kilian给出了部分的证明，但是他们没有保持Lable Cover问题的投影属性（在那时可能人们没有意识到投影属性的重要性）。之后，在期刊版本的论文中，他们给出了另一种方法保持投影属性，并同样证明了定理4.6，然而Feige与Kilian的证明得到的字母表大小为$|\Sigma|=2^{poly(1/\epsilon)}$。Parallel Repetition定理的证明相当困难，Holenstein于2006年对该证明进行了简化与改进[Holenstein06]，但是看懂它仍然是非常困难的事情（至少我觉得比PCP定理难多了orz）。由于<strong>$GAP-LC(\Sigma)_{1, s}$</strong>的gap可以任意大，所以该问题也成为了证明其他问题不可近似性的“母问题”。</p>
 <h1 id="5-你是一名“独裁者”吗？Hastad’s-3-query-PCP"><a href="#5-你是一名“独裁者”吗？Hastad’s-3-query-PCP" class="headerlink" title="5. 你是一名“独裁者”吗？Håstad’s 3-query PCP"></a>5. 你是一名“独裁者”吗？Håstad’s 3-query PCP</h1><h2 id="5-1-Max-E3LIN2问题"><a href="#5-1-Max-E3LIN2问题" class="headerlink" title="5.1 Max-E3LIN2问题"></a>5.1 Max-E3LIN2问题</h2><p>​        上一章中我们得到了关于Lable Cover问题不可近似性的相当Cool的结论，对于任意的常数$\epsilon&gt;0$，存在字母表$\Sigma$，<strong>MAX-LC($\Sigma$)</strong>不存在近似比为$\epsilon$的多项式时间算法，我们对不可近似性的理解又往前加深了一步。本章中我们将利用Lable Cover问题，证明Max-E3LIN2问题的不可近似性，该问题可以很简单地归约到Max-E3SAT问题（见第6章）。</p>
 <p>​        Max-E3LIN2问题说的是一个解线性方程组的问题，给定一系列形如$x_{i_1}+x_{i_2}+x_{i_3}=b_i(\mod 2) $的方程，给出一种赋值方案，使得该方程组中尽可能有多的方程能被满足。虽然该问题从表面上看只是一个解线性方程组的问题，但是它是NP难问题。为了获得该问题的不可近似性，我们可以构造某种满足特定要求的PCP系统（回忆第3章的内容），该证明系统的验证者的验证形式只能是从证明中获取3个比特，并验证它们的异或（XOR）是否等于某个特定的值，从这种证明系统中我们就能获得一个E3LIN2问题的实例（验证者的每次验证就相当于一个方程）。1997年，Håstad给出了如下的证明系统：</p>
@@ -607,7 +607,7 @@ height:50vh;
             <p>原文作者：<a href="https://doublejun12.github.io">Shuangjun Zhang</a>
             <p>原文链接：<a href="https://doublejun12.github.io/2020/12/11/max-3sat/">https://doublejun12.github.io/2020/12/11/max-3sat/</a>
             <p>发表日期：<a href="https://doublejun12.github.io/2020/12/11/max-3sat/">十二月 11日 2020, 2:02:37 下午</a>
-            <p>更新日期：<a href="https://doublejun12.github.io/2020/12/11/max-3sat/">December 24th 2020, 10:02:06 pm</a>
+            <p>更新日期：<a href="https://doublejun12.github.io/2020/12/11/max-3sat/">December 24th 2020, 10:08:25 pm</a>
             <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -906,23 +906,7 @@ jsonContent:
     
         <script src="/scripts/share.js" async></script>    
      
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
-</body>
+    </body>
 </html>
 
 
