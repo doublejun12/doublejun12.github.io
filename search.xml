@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Hardness vs. Randomness：“随机算法”的“随机”是否真的有用？</title>
+      <link href="/2020/12/28/derandomization/"/>
+      <url>/2020/12/28/derandomization/</url>
+      
+        <content type="html"><![CDATA[<h1 id="1-随机算法的威力"><a href="#1-随机算法的威力" class="headerlink" title="1. 随机算法的威力"></a>1. 随机算法的威力</h1><h1 id="2-（复杂性理论的）伪随机数生成器"><a href="#2-（复杂性理论的）伪随机数生成器" class="headerlink" title="2. （复杂性理论的）伪随机数生成器"></a>2. （复杂性理论的）伪随机数生成器</h1><h1 id="3-Nisan-Wigderson-PRG"><a href="#3-Nisan-Wigderson-PRG" class="headerlink" title="3. Nisan-Wigderson PRG"></a>3. Nisan-Wigderson PRG</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算复杂性 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Random Computation </tag>
+            
+            <tag> Derandomization </tag>
+            
+            <tag> Pesudorandomness </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Max-E3SAT问题的不可近似性：从Cook-Levin到Håstad&#39;s E3-SAT Hardness</title>
       <link href="/2020/12/11/max-3sat/"/>
       <url>/2020/12/11/max-3sat/</url>

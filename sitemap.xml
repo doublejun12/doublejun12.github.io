@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://doublejun12.github.io/2020/12/28/derandomization/</loc>
+    
+    <lastmod>2020-12-28T07:51:39.975Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://doublejun12.github.io/2020/12/11/max-3sat/</loc>
     
     <lastmod>2020-12-24T14:08:25.147Z</lastmod>
@@ -51,7 +58,7 @@
   </url>
   
   <url>
-    <loc>https://doublejun12.github.io/friends/index.html</loc>
+    <loc>https://doublejun12.github.io/tags/index.html</loc>
     
     <lastmod>2020-04-05T02:43:43.000Z</lastmod>
     
@@ -65,7 +72,7 @@
   </url>
   
   <url>
-    <loc>https://doublejun12.github.io/tags/index.html</loc>
+    <loc>https://doublejun12.github.io/friends/index.html</loc>
     
     <lastmod>2020-04-05T02:43:43.000Z</lastmod>
     
